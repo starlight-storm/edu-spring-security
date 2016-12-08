@@ -47,6 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-// TODO: 演習2 jdbcAuthenticationメソッドを実行してデータベースから認証/認可の情報を取得する。
+// TODO 演習2 jdbcAuthenticationメソッドを実行してデータベースから認証/認可の情報を取得する。
     }
 }

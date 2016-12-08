@@ -1,5 +1,8 @@
 package com.example.config;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import static org.springframework.http.HttpMethod.*;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -33,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("paramLoginId")
 				.passwordParameter("paramPassword")
 				.and()
-			// 演習4 ログアウト処理をするように設定しなさい
-			// 演習4 エラー画面が出るように設定しなさい
+			//TODO 演習4 ログアウト処理をするように設定しなさい
+			//TODO 演習4 エラー画面が出るように設定しなさい
 				
 			.csrf().disable();
 	}
@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-    	// 演習4 パスワードが暗号化できるように設定しなさい
+    	//TODO 演習4 パスワードが暗号化できるように設定しなさい
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery(USER_QUERY)
