@@ -33,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("paramLoginId")
 				.passwordParameter("paramPassword")
 				.and()
-			//TODO 演習4 ログアウト処理をするように設定しなさい
-			//TODO 演習4 エラー画面が出るように設定しなさい
+			//TODO 演習5 ログアウト処理をするように設定しなさい
+			//TODO 演習5 エラー画面が出るように設定しなさい
 				
 			.csrf().disable();
 	}
@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-    	//TODO 演習4 パスワードが暗号化できるように設定しなさい
+    	//TODO 演習5 パスワードが暗号化できるように設定しなさい
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery(USER_QUERY)

@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-//TODO 演習3 継承するクラスを記述しなさい
+//TODO 演習4 継承するクラスを記述しなさい
 public class SampleJdbcDaoImpl {
 
     protected List<UserDetails> loadUsersByUsername(String username) {

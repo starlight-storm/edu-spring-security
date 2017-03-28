@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 
-// TODO 演習3 継承するクラスを記述しなさい
+// TODO 演習4 継承するクラスを記述しなさい
 public class SampleUser {
 
     private String fullName;
