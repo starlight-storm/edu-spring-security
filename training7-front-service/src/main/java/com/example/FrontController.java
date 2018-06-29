@@ -22,11 +22,6 @@ public class FrontController {
 
 	@GetMapping("/")
 	String helloFront() {
-		return restTemplate.getForObject(
-				UriComponentsBuilder
-				.fromUri(messageServiceUri)
-				.build()
-				.toUri(), 
-				String.class);
+		return restTemplate.getForObject(UriComponentsBuilder.fromUri(messageServiceUri).build().toUri(), String.class);
 	}
 }

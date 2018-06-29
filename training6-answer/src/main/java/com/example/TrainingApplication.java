@@ -17,4 +17,9 @@ public class TrainingApplication {
 	public String index() {
 		return("login");
 	}
+	
+//	@RequestMapping("/expired")
+//	public String error() {
+//		return("accessDenied");
+//	}
 }

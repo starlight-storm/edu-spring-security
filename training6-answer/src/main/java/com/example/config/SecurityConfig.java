@@ -1,15 +1,23 @@
 package com.example.config;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.embedded.ServletListenerRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
-import static org.springframework.http.HttpMethod.*;
+import com.example.handler.DoubleLoginAuthenticationFailureHandler;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -39,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginPage("/login.html")
 				.loginProcessingUrl("/processLogin")
 				.defaultSuccessUrl("/top.html")
-				.failureUrl("/login.html")
+				//.failureUrl("/login.html")
+				.failureHandler(new DoubleLoginAuthenticationFailureHandler())
 				.usernameParameter("paramLoginId")
 				.passwordParameter("paramPassword")
 				.and()
@@ -52,9 +61,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			    .accessDeniedPage("/accessDenied.html")
 			    .and()
 			// disable()を外すと、今回のサンプルは大変なのでつけておく
-			.csrf().disable();
+			.csrf().disable()
+			.sessionManagement()
+		    	.maximumSessions(1)
+		    	.maxSessionsPreventsLogin(true)
+		    	//.expiredUrl("/max-session-error.html")
+		    	.sessionRegistry(sessionRegistry());
 	}
 
+    // Work around https://jira.spring.io/browse/SEC-2855
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        SessionRegistry sessionRegistry = new SessionRegistryImpl();
+        return sessionRegistry;
+    }
+
+    // Register HttpSessionEventPublisher
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Bean
+    public static ServletListenerRegistrationBean httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
+    }
+    
     @Autowired
     private DataSource dataSource;
 
