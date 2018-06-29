@@ -31,8 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             throws Exception {
         auth
             .inMemoryAuthentication()
-                .withUser("user").password("userpassword").authorities("ROLE_USER")
+                .withUser("user").password("{noop}userpassword").authorities("ROLE_USER")
                     .and()
-                .withUser("admin").password("adminuser").authorities("ROLE_ADMIN");
+                .withUser("admin").password("{noop}adminuser").authorities("ROLE_ADMIN");
     }
 }
